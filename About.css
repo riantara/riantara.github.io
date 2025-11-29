@@ -3,183 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love: Rian & Olip</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Akar dan Mawar Jatuh</title>
     <style>
-        /* Reset dasar */
-        * {
+        /* --- Reset dan Latar Belakang --- */
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #1a2a1a, #2b3e25); /* Latar belakang hutan gelap */
+            overflow: hidden; /* Mencegah scrollbar saat mawar jatuh keluar layar */
+            display: flex;
+            justify-content: center;
+            font-family: sans-serif;
         }
 
-        body {
-            /* Latar belakang gradien pink ke ungu */
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-            height: 100vh;
+        /* --- Desain Akar (Trigger) --- */
+        .root-container {
+            position: relative;
+            top: 0;
+            cursor: pointer;
+            z-index: 10; /* Pastikan akar di atas mawar */
+            text-align: center;
+        }
+
+        /* Visualisasi Akar menggunakan CSS */
+        .the-root {
+            width: 200px;
+            height: 80px;
+            background: #5c4033; /* Warna coklat kayu */
+            border-radius: 0 0 50% 50% / 0 0 100% 100%; /* Membuat bentuk melengkung ke bawah */
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            font-family: 'Dancing Script', cursive;
+            color: #d4c4a8;
+            font-weight: bold;
+            border: 4px solid #3e2b22;
+            transition: transform 0.2s;
         }
 
-        /* Kontainer utama */
-        .love-container {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column; /* Susun vertikal di layar kecil */
-            align-items: center;
-            gap: 20px;
+        /* Efek saat akar disentuh/diklik */
+        .the-root:active {
+            transform: scale(0.95); /* Sedikit mengecil saat ditekan */
+            background: #6d4c3d;
         }
 
-        /* Gaya untuk teks Nama */
-        .name {
-            font-size: 4rem;
-            color: #d63384; /* Warna pink tua */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            animation: floatText 3s ease-in-out infinite;
-        }
-
-        .name.rian {
-            animation-delay: 0s;
-        }
-        
-        .name.olip {
-            animation-delay: 1.5s; /* Sedikit delay agar gerakannya bergantian */
-        }
-
-        /* Kontainer untuk Hati di tengah */
-        .heart-wrapper {
-            position: relative;
-            width: 100px;
-            height: 90px;
-            margin: 20px;
-             animation: heartbeat 1.2s infinite;
-        }
-
-        /* Membuat bentuk Hati menggunakan CSS murni */
-        .heart {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ff3d6b;
-            transform: rotate(-45deg);
-            box-shadow: -5px 10px 20px rgba(237, 59, 106, 0.4);
-        }
-
-        .heart::before,
-        .heart::after {
+        /* Tambahan detail cabang kecil (opsional) */
+        .the-root::before, .the-root::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #ff3d6b;
-            border-radius: 50%;
+            background: #5c4033;
+            z-index: -1;
+        }
+        .the-root::before {
+            width: 60px; height: 60px;
+            top: 20px; left: -20px;
+            border-radius: 0 0 50% 0;
+            transform: rotate(-20deg);
+        }
+        .the-root::after {
+            width: 60px; height: 70px;
+            top: 10px; right: -20px;
+            border-radius: 0 0 0 50%;
+            transform: rotate(20deg);
         }
 
-        .heart::before {
-            top: -50%;
-            left: 0;
-        }
 
-        .heart::after {
-            top: 0;
-            right: -50%;
-        }
-
-        /* --- Animasi --- */
-
-        /* Animasi Detak Jantung */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-
-        /* Animasi Teks Melayang */
-        @keyframes floatText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* --- Latar Belakang Hati Melayang (Opsional) --- */
-        .bg-hearts {
+        /* --- Desain Mawar Jatuh --- */
+        .falling-rose {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
+            top: -50px; /* Mulai dari luar layar atas */
+            font-size: 24px;
+            pointer-events: none; /* Agar mawar tidak bisa diklik */
+            /* Animasi akan diterapkan via JS */
         }
 
-        .bg-hearts span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.5);
-            animation: rise 10s linear infinite;
-            bottom: -50px;
-            clip-path: path('M10,3.4 C13.6,-2.4 24.2,2.5 18.9,10.7 C13.6,18.9 10,23 10,23 C10,23 6.4,18.9 1.1,10.7 C-4.2,2.5 6.4,-2.4 10,3.4 Z');
-        }
-
-        @keyframes rise {
+        /* Keyframes untuk animasi jatuh */
+        @keyframes fallAndSpin {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg) translateX(0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-1000px) rotate(360deg);
-                opacity: 0;
+                /* Jatuh ke bawah layar (110vh), berputar, dan sedikit bergeser ke samping */
+                transform: translateY(110vh) rotate(360deg) translateX(calc(-50px + Math.random() * 100px)); 
+                opacity: 0.7;
             }
         }
 
-        /* Penyesuaian untuk layar yang lebih besar (tablet/desktop) */
-        @media (min-width: 768px) {
-            .love-container {
-                flex-direction: row; /* Ubah menjadi horizontal */
-                gap: 40px;
-            }
-            .name {
-                font-size: 6rem;
-            }
-            .heart-wrapper {
-                width: 120px;
-                height: 108px;
-            }
+        /* Instruksi kecil */
+        .instruction {
+            position: absolute;
+            top: 120px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-hearts">
-        <span style="left: 10%; animation-duration: 8s; width: 30px; height: 30px;"></span>
-        <span style="left: 30%; animation-duration: 12s;"></span>
-        <span style="left: 50%; animation-duration: 7s; width: 40px; height: 40px;"></span>
-        <span style="left: 70%; animation-duration: 11s;"></span>
-        <span style="left: 90%; animation-duration: 9s; width: 25px; height: 25px;"></span>
-        <span style="left: 20%; animation-duration: 15s; animation-delay: 2s;"></span>
-        <span style="left: 60%; animation-duration: 13s; animation-delay: 4s;"></span>
-    </div>
-
-    <div class="love-container">
-        <div class="name rian">Rian</div>
-        
-        <div class="heart-wrapper">
-            <div class="heart"></div>
+    <div class="root-container" id="rootTrigger">
+        <div class="the-root">
+            SENTUH AKAR
         </div>
-        
-        <div class="name olip">Olip</div>
     </div>
+    <div class="instruction">Ketuk akar untuk menjatuhkan mawar</div>
+
+    <script>
+        const rootTrigger = document.getElementById('rootTrigger');
+
+        // Fungsi untuk membuat satu mawar
+        function createRose() {
+            const rose = document.createElement('div');
+            rose.innerHTML = '🌹'; // Menggunakan emoji mawar
+            rose.classList.add('falling-rose');
+
+            // --- Randomisasi ---
+            
+            // 1. Posisi Horizontal Acak
+            // Agar muncul di sekitar area akar (tengah layar)
+            const startX = window.innerWidth / 2 + (Math.random() * 200 - 100);
+            rose.style.left = startX + 'px';
+
+            // 2. Ukuran Acak (antara 20px sampai 40px)
+            const size = Math.random() * 20 + 20;
+            rose.style.fontSize = size + 'px';
+
+            // 3. Durasi Jatuh Acak (antara 3s sampai 6s)
+            const duration = Math.random() * 3 + 3;
+            
+            // 4. Gerakan Horizontal Acak (Sway) saat jatuh
+            // Kita perlu membuat keyframe dinamis untuk setiap mawar agar gerakan sway-nya berbeda
+            const randomSway = Math.random() * 100 - 50; // Antara -50px ke 50px
+            const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; // Nama animasi unik
+            
+            // Membuat style untuk keyframe dinamis
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes ${animationName} {
+                    to {
+                        transform: translateY(110vh) rotate(${Math.random() * 720}deg) translateX(${randomSway}px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Terapkan animasi ke elemen mawar
+            rose.style.animation = `${animationName} ${duration}s linear forwards`;
+
+            document.body.appendChild(rose);
+
+            // --- Pembersihan ---
+            // Hapus elemen mawar dan style keyframenya setelah animasi selesai agar browser tidak berat
+            setTimeout(() => {
+                rose.remove();
+                style.remove();
+            }, duration * 1000);
+        }
+
+        // Event Listener saat akar disentuh/diklik
+        rootTrigger.addEventListener('click', (e) => {
+            // Efek getar sedikit pada akar (opsional)
+            rootTrigger.style.transform = "translateY(5px)";
+            setTimeout(() => rootTrigger.style.transform = "translateY(0)", 100);
+
+            // Munculkan beberapa mawar sekaligus (misal: 10 mawar per klik)
+            for(let i = 0; i < 10; i++) {
+                // Beri sedikit jeda antar mawar agar tidak muncul bersamaan persis
+                setTimeout(createRose, i * 100);
+            }
+        });
+    </script>
 
 </body>
 </html>
