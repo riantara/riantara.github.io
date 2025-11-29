@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akar dan Mawar Jatuh</title>
     <style>
+        /* --- KODE BARU DIMULAI DI SINI (CSS Bintang) --- */
+        .star-fall {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8); /* Warna putih/kuning muda */
+            border-radius: 50%;
+            animation: twinkle 15s linear infinite;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            z-index: 1; /* Di bawah akar, di atas background */
+        }
+
+        /* Animasi Bintang: jatuh perlahan dan berkedip */
+        @keyframes twinkle {
+            0% {
+                transform: translateY(0);
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1; /* Berkedip */
+            }
+            100% {
+                transform: translateY(100vh); /* Jatuh perlahan */
+                opacity: 0;
+            }
+        }
+        /* --- KODE BARU BERAKHIR DI SINI --- */
+
         /* --- Reset dan Latar Belakang --- */
         body {
             margin: 0;
@@ -120,24 +149,22 @@
             rose.innerHTML = '🌹'; // Menggunakan emoji mawar
             rose.classList.add('falling-rose');
 
-            // --- Randomisasi ---
+            // --- Randomisasi Mawar ---
             
             // 1. Posisi Horizontal Acak
-            // Agar muncul di sekitar area akar (tengah layar)
             const startX = window.innerWidth / 2 + (Math.random() * 200 - 100);
             rose.style.left = startX + 'px';
 
-            // 2. Ukuran Acak (antara 20px sampai 40px)
+            // 2. Ukuran Acak
             const size = Math.random() * 20 + 20;
             rose.style.fontSize = size + 'px';
 
-            // 3. Durasi Jatuh Acak (antara 3s sampai 6s)
+            // 3. Durasi Jatuh Acak
             const duration = Math.random() * 3 + 3;
             
             // 4. Gerakan Horizontal Acak (Sway) saat jatuh
-            // Kita perlu membuat keyframe dinamis untuk setiap mawar agar gerakan sway-nya berbeda
-            const randomSway = Math.random() * 100 - 50; // Antara -50px ke 50px
-            const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; // Nama animasi unik
+            const randomSway = Math.random() * 100 - 50; 
+            const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; 
             
             // Membuat style untuk keyframe dinamis
             const style = document.createElement('style');
@@ -156,8 +183,7 @@
 
             document.body.appendChild(rose);
 
-            // --- Pembersihan ---
-            // Hapus elemen mawar dan style keyframenya setelah animasi selesai agar browser tidak berat
+            // --- Pembersihan Mawar ---
             setTimeout(() => {
                 rose.remove();
                 style.remove();
@@ -170,12 +196,39 @@
             rootTrigger.style.transform = "translateY(5px)";
             setTimeout(() => rootTrigger.style.transform = "translateY(0)", 100);
 
-            // Munculkan beberapa mawar sekaligus (misal: 10 mawar per klik)
+            // Munculkan 10 mawar
             for(let i = 0; i < 10; i++) {
-                // Beri sedikit jeda antar mawar agar tidak muncul bersamaan persis
                 setTimeout(createRose, i * 100);
             }
         });
+        
+        /* --- KODE BARU DIMULAI DI SINI (JS Bintang) --- */
+
+        // Fungsi untuk membuat Bintang/Salju
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star-fall');
+            
+            // Posisi horizontal acak di seluruh layar
+            star.style.left = Math.random() * window.innerWidth + 'px'; 
+            // Kecepatan jatuh acak
+            star.style.animationDuration = Math.random() * 10 + 5 + 's'; 
+            // Ukuran acak
+            star.style.width = star.style.height = Math.random() * 2 + 1 + 'px'; 
+            
+            document.body.appendChild(star);
+
+            // Hapus bintang setelah selesai animasi
+            setTimeout(() => {
+                star.remove();
+            }, 15000); 
+        }
+
+        // Panggil fungsi createStar secara terus menerus (setiap 200 milidetik)
+        setInterval(createStar, 200); 
+        
+        /* --- KODE BARU BERAKHIR DI SINI --- */
+
     </script>
 
 </body>
