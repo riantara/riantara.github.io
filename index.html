@@ -1,54 +1,185 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;" lang="en"><head>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>About</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="About.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
-    <meta name="generator" content="Nicepage 4.19.3, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    
-    
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "",
-		"logo": "images/default-logo.png"
-}</script>
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="About">
-    <meta property="og:type" content="website">
-  </head>
-  <body data-home-page="About.html" data-home-page-title="About" class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-81ed"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1">
-          <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
-        </a>
-      </div></header>
-    <section class="u-align-center u-clearfix u-image u-shading u-section-1" src="" data-image-width="256" data-image-height="256" id="sec-88c0">
-      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <h1 class="u-text u-text-default u-title u-text-1">Sample Headline</h1>
-        <p class="u-large-text u-text u-text-variant u-text-2">Sample text. Click to select the text box. Click again or double click to start editing the text.</p>
-      </div>
-    </section>
-    
-    
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-0fa1"><div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">RIAN ANGEL</p>
-      </div></footer>
-    <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Templates</span>
-      </a>
-      <p class="u-text">
-        <span>created with</span>
-      </p>
-      <a class="u-link" href="" target="_blank">
-        <span>Website Builder Software</span>
-      </a>. 
-    </section>
-  
-</body></html>
+    <title>Love: Rian & Olip</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* Reset dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Latar belakang gradien pink ke ungu */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Kontainer utama */
+        .love-container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column; /* Susun vertikal di layar kecil */
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Gaya untuk teks Nama */
+        .name {
+            font-size: 4rem;
+            color: #d63384; /* Warna pink tua */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: floatText 3s ease-in-out infinite;
+        }
+
+        .name.rian {
+            animation-delay: 0s;
+        }
+        
+        .name.olip {
+            animation-delay: 1.5s; /* Sedikit delay agar gerakannya bergantian */
+        }
+
+        /* Kontainer untuk Hati di tengah */
+        .heart-wrapper {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            margin: 20px;
+             animation: heartbeat 1.2s infinite;
+        }
+
+        /* Membuat bentuk Hati menggunakan CSS murni */
+        .heart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff3d6b;
+            transform: rotate(-45deg);
+            box-shadow: -5px 10px 20px rgba(237, 59, 106, 0.4);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #ff3d6b;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            right: -50%;
+        }
+
+        /* --- Animasi --- */
+
+        /* Animasi Detak Jantung */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        /* Animasi Teks Melayang */
+        @keyframes floatText {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- Latar Belakang Hati Melayang (Opsional) --- */
+        .bg-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .bg-hearts span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            animation: rise 10s linear infinite;
+            bottom: -50px;
+            clip-path: path('M10,3.4 C13.6,-2.4 24.2,2.5 18.9,10.7 C13.6,18.9 10,23 10,23 C10,23 6.4,18.9 1.1,10.7 C-4.2,2.5 6.4,-2.4 10,3.4 Z');
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Penyesuaian untuk layar yang lebih besar (tablet/desktop) */
+        @media (min-width: 768px) {
+            .love-container {
+                flex-direction: row; /* Ubah menjadi horizontal */
+                gap: 40px;
+            }
+            .name {
+                font-size: 6rem;
+            }
+            .heart-wrapper {
+                width: 120px;
+                height: 108px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts">
+        <span style="left: 10%; animation-duration: 8s; width: 30px; height: 30px;"></span>
+        <span style="left: 30%; animation-duration: 12s;"></span>
+        <span style="left: 50%; animation-duration: 7s; width: 40px; height: 40px;"></span>
+        <span style="left: 70%; animation-duration: 11s;"></span>
+        <span style="left: 90%; animation-duration: 9s; width: 25px; height: 25px;"></span>
+        <span style="left: 20%; animation-duration: 15s; animation-delay: 2s;"></span>
+        <span style="left: 60%; animation-duration: 13s; animation-delay: 4s;"></span>
+    </div>
+
+    <div class="love-container">
+        <div class="name rian">Rian</div>
+        
+        <div class="heart-wrapper">
+            <div class="heart"></div>
+        </div>
+        
+        <div class="name olip">Olip</div>
+    </div>
+
+</body>
+</html>
