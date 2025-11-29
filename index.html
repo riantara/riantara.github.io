@@ -13,81 +13,30 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: sans-serif;
       min-height: 100vh;
       overflow: hidden;
-      background: radial-gradient(circle at top, #ffe6f7 0, #1b1b3a 45%, #050514 100%);
+      background: linear-gradient(145deg, #0b0013, #1d0030 60%, #3c004e);
       color: #fff;
     }
 
-    /* Background animated gradient */
-    .bg-layer {
+    /* Nebula background movement */
+    .bg {
       position: fixed;
-      inset: -50px;
+      inset: 0;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255, 0, 120, 0.4), transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.4), transparent 60%),
-        radial-gradient(circle at 50% 120%, rgba(255, 200, 0, 0.35), transparent 60%);
-      filter: blur(4px);
-      animation: bgMove 18s ease-in-out infinite alternate;
+        radial-gradient(circle at 30% 40%, rgba(255, 0, 140, 0.4), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(0, 180, 255, 0.35), transparent 60%);
+      filter: blur(40px);
+      animation: bgMove 16s ease-in-out infinite alternate;
       z-index: -2;
     }
-
     @keyframes bgMove {
-      0%   { transform: translate3d(0,0,0) scale(1); }
-      50%  { transform: translate3d(-30px, 30px,0) scale(1.1); }
-      100% { transform: translate3d(30px,-30px,0) scale(1.05); }
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-40px, 40px); }
     }
 
-    /* Floating hearts background */
-    .floating-heart {
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      background: rgba(255, 255, 255, 0.9);
-      transform: rotate(45deg);
-      border-radius: 4px;
-      pointer-events: none;
-      animation: floatUp 7s linear infinite;
-      z-index: -1;
-    }
-
-    .floating-heart::before,
-    .floating-heart::after {
-      content: "";
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      background: inherit;
-      border-radius: 50%;
-    }
-
-    .floating-heart::before {
-      top: -7px;
-      left: 0;
-    }
-
-    .floating-heart::after {
-      left: -7px;
-      top: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(45deg) scale(0.7);
-        opacity: 0;
-      }
-      20% { opacity: 1; }
-      100% {
-        transform: translateY(-150vh) rotate(45deg) scale(1.5);
-        opacity: 0;
-      }
-    }
-
-    /* Center layout */
     .center {
-      position: relative;
-      z-index: 2;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -95,294 +44,182 @@
       padding: 20px;
     }
 
-    .card {
+    .frame {
       position: relative;
-      padding: 40px 30px;
-      max-width: 420px;
+      border-radius: 32px;
+      padding: 46px 34px;
+      max-width: 430px;
       width: 100%;
-      border-radius: 30px;
-      background: rgba(8, 8, 24, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(255, 255, 255, 0.06);
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -60px;
-      background:
-        conic-gradient(from 120deg, rgba(255, 255, 255, 0.1), transparent 40%, rgba(255, 0, 128, 0.5), transparent 80%);
-      opacity: 0.7;
-      mix-blend-mode: screen;
-      animation: rotateAura 16s linear infinite;
-    }
-
-    @keyframes rotateAura {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
       text-align: center;
+      background: rgba(8, 8, 24, 0.7);
+      border: 1px solid rgba(255,255,255,0.13);
+      backdrop-filter: blur(14px);
+      box-shadow:
+        0 0 45px rgba(255,0,180,0.25),
+        0 0 120px rgba(0,170,255,0.25);
     }
 
-    /* Neon ring + heart in middle */
-    .orbit-wrapper {
+    /* LOVE symbol — neon futuristic */
+    .love-holder {
       position: relative;
       width: 230px;
       height: 230px;
-      margin: 0 auto 24px;
+      margin: 0 auto 26px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .orbit-ring {
+    /* rotating glow ring */
+    .ring {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      box-shadow:
-        0 0 20px rgba(255, 0, 128, 0.35),
-        0 0 60px rgba(0, 180, 255, 0.25);
-      backdrop-filter: blur(4px);
-      animation: ringGlow 6s ease-in-out infinite alternate;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 0 40px rgba(255,0,150,0.32);
+      animation: rotate 8s linear infinite;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    @keyframes ringGlow {
-      0% {
-        box-shadow:
-          0 0 12px rgba(255, 0, 128, 0.3),
-          0 0 26px rgba(0, 180, 255, 0.2);
-      }
-      100% {
-        box-shadow:
-          0 0 28px rgba(255, 0, 128, 0.7),
-          0 0 60px rgba(0, 180, 255, 0.5);
-      }
+    /* new heart symbol (abstract neon heart) */
+    .neon-heart {
+      position: relative;
+      width: 130px;
+      aspect-ratio: 1;
+      filter: drop-shadow(0 0 12px rgba(255, 0, 180, 0.7));
+    }
+    .neon-heart svg {
+      width: 100%;
+      height: 100%;
+      animation: pulse 1.7s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.22); opacity: 0.88; }
     }
 
-    /* Small orbiting dots */
-    .orbit-dot {
+    .names {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+    .symbol {
+      font-size: 1.7rem;
+      animation: glow 1.6s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+      50% { filter: drop-shadow(0 0 12px rgba(255,100,160,1)); }
+    }
+
+    /* floating click hearts */
+    .float-heart {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: rgba(255,255,255,0.92);
+      border-radius: 4px;
+      transform: rotate(45deg);
+      pointer-events: none;
+      animation: fly 8s linear forwards;
+      z-index: -1;
+    }
+    .float-heart::before, .float-heart::after {
+      content: "";
       position: absolute;
       width: 14px;
       height: 14px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fff, #ff4d9e);
-      box-shadow: 0 0 12px rgba(255, 140, 180, 0.9);
-      animation: orbit 10s linear infinite;
-      transform-origin: 50% 100px;
-    }
-
-    .orbit-dot:nth-child(2) {
-      animation-duration: 14s;
-      transform-origin: 50% 70px;
-      opacity: 0.8;
-    }
-
-    .orbit-dot:nth-child(3) {
-      animation-duration: 18s;
-      transform-origin: 50% 120px;
-      opacity: 0.6;
-    }
-
-    @keyframes orbit {
-      0%   { transform: rotate(0deg) translateX(0); }
-      100% { transform: rotate(360deg) translateX(0); }
-    }
-
-    .heart-core {
-      position: relative;
-      width: 90px;
-      height: 90px;
-      transform: rotate(45deg);
-      background: radial-gradient(circle at 30% 30%, #fff, #ff4d9e);
-      border-radius: 30px;
-      box-shadow:
-        0 0 25px rgba(255, 77, 158, 0.9),
-        0 0 60px rgba(255, 198, 234, 0.6);
-      animation: heartBeat 1.4s ease-in-out infinite;
-    }
-
-    .heart-core::before,
-    .heart-core::after {
-      content: "";
-      position: absolute;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
       background: inherit;
+      border-radius: 50%;
+    }
+    .float-heart::before { top: -7px; left: 0; }
+    .float-heart::after  { top: 0; left: -7px; }
+    @keyframes fly {
+      0%   { transform: translateY(0) scale(0.7) rotate(45deg); opacity: 0; }
+      20%  { opacity: 1; }
+      100% { transform: translateY(-150vh) scale(1.5) rotate(45deg); opacity: 0; }
     }
 
-    .heart-core::before {
-      top: -45px;
-      left: 0;
-    }
-
-    .heart-core::after {
-      left: -45px;
-      top: 0;
-    }
-
-    @keyframes heartBeat {
-      0%, 100% { transform: rotate(45deg) scale(1); }
-      50%      { transform: rotate(45deg) scale(1.25); }
-    }
-
-    /* Names */
-    .names {
-      font-size: clamp(1.8rem, 5vw, 2.4rem);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-
-    .symbol {
-      font-size: 1.8rem;
-      vertical-align: middle;
-      animation: symbolPulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes symbolPulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 100, 160, 0.3)); }
-      50%      { transform: scale(1.25); filter: drop-shadow(0 0 20px rgba(255, 100, 160, 0.8)); }
-    }
-
-    .tagline {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-      opacity: 0.8;
-    }
-
-    /* Small static note in bottom */
-    .corner-note {
+    .corner {
       position: fixed;
       bottom: 14px;
-      right: 18px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
+      right: 14px;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
       opacity: 0.6;
-      z-index: 3;
+      pointer-events: none;
     }
 
-    .corner-note span {
-      opacity: 0.8;
-    }
-
-    .tap-hint {
+    .hint {
       position: fixed;
-      bottom: 16px;
-      left: 18px;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      bottom: 14px;
+      left: 14px;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
       opacity: 0.65;
-      z-index: 3;
-    }
-
-    @media (max-width: 480px) {
-      .card {
-        padding: 28px 20px 30px;
-      }
-      .orbit-wrapper {
-        width: 190px;
-        height: 190px;
-      }
-      .names {
-        letter-spacing: 0.12em;
-      }
+      pointer-events: none;
     }
   </style>
 </head>
+
 <body>
-  <div class="bg-layer"></div>
+  <div class="bg"></div>
 
   <div class="center">
-    <div class="card">
-      <div class="card-inner">
-        <div class="orbit-wrapper">
-          <div class="orbit-ring"></div>
+    <div class="frame">
+      <div class="love-holder">
+        <div class="ring"></div>
 
-          <!-- Dots mengelilingi hati -->
-          <div class="orbit-dot"></div>
-          <div class="orbit-dot"></div>
-          <div class="orbit-dot"></div>
+        <!-- Neon heart icon (baru, lebih keren) -->
+        <div class="neon-heart">
+          <svg viewBox="0 0 512 512">
+            <path d="M471.7 73.1c-54.5-46.4-136-38.3-186.4 13.9L256 116.7l-29.3-29.6C176.3 34.8 94.7 26.7 40.3 73.1-24.6 128.8-13.1 226.4 43 285l190 193.7c6.2 6.3 16.4 6.3 22.6 0L469 285c56.1-58.6 67.6-156.2 2.7-211.9z"
+              fill="none"
+              stroke="rgba(255,0,160,1)"
+              stroke-width="32"
+              stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
 
-          <!-- Hati utama -->
-          <div class="heart-core"></div>
-        </div>
-
-        <!-- Hanya nama dan simbol love, tanpa kalimat panjang -->
-        <div class="names">
-          RIAN
-          <span class="symbol">♥</span>
-          OLIP
-        </div>
-        <div class="tagline">
-          FOREVER • LOVE • ART
-        </div>
+      <div class="names">
+        RIAN <span class="symbol">♥</span> OLIP
       </div>
     </div>
   </div>
 
-  <div class="corner-note">
-    <span>RIAN ♥ OLIP</span>
-  </div>
-
-  <div class="tap-hint">
-    CLICK / TAP = HEARTS
-  </div>
+  <div class="corner">RIAN ♥ OLIP</div>
+  <div class="hint">CLICK / TAP = HEART</div>
 
   <script>
-    // Buat hati kecil mengambang dari bawah
-    function createHeart(x, y, fromClick = false) {
-      const heart = document.createElement("div");
-      heart.classList.add("floating-heart");
-
-      const size = Math.random() * 16 + 10; // 10–26px
-      heart.style.width = size + "px";
-      heart.style.height = size + "px";
-
-      if (fromClick && typeof x === "number" && typeof y === "number") {
-        heart.style.left = x - size / 2 + "px";
-        heart.style.top = y - size / 2 + "px";
-      } else {
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.bottom = "-50px";
-      }
-
-      const duration = Math.random() * 4 + 5; // 5–9s
-      heart.style.animationDuration = duration + "s";
-      heart.style.opacity = Math.random() * 0.5 + 0.4;
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, duration * 1000);
+    function popHeart(x, y) {
+      const h = document.createElement("div");
+      h.classList.add("float-heart");
+      const s = Math.random()*16 + 10;
+      h.style.width = s+"px";
+      h.style.height = s+"px";
+      h.style.left = x - s/2 + "px";
+      h.style.top  = y - s/2 + "px";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 8000);
     }
 
-    // Otomatis tiap beberapa detik
     setInterval(() => {
-      createHeart();
-    }, 1200);
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight + 40;
+      popHeart(x, y);
+    }, 1300);
 
-    // Klik / tap untuk munculin hati di posisi klik
-    document.addEventListener("click", (event) => {
-      for (let i = 0; i < 4; i++) {
-        setTimeout(() => {
-          const offsetX = event.clientX + (Math.random() * 60 - 30);
-          const offsetY = event.clientY + (Math.random() * 60 - 30);
-          createHeart(offsetX, offsetY, true);
-        }, i * 120);
+    document.addEventListener("click", e => {
+      for(let i=0;i<4;i++){
+        setTimeout(()=>{
+          popHeart(e.clientX + (Math.random()*60 - 30),
+                   e.clientY + (Math.random()*60 - 30));
+        }, i*120);
       }
     });
   </script>
