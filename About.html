@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Rian & Olip Love Story</title>
+  <title>Rian ♥ Olip</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -15,19 +15,31 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #ffe6f7 0, #1b1b3a 45%, #050514 100%);
       color: #fff;
-      overflow-x: hidden;
-      background: linear-gradient(-45deg, #ff6b6b, #f06595, #845ef7, #339af0);
-      background-size: 300% 300%;
-      animation: bgMove 15s ease infinite;
+    }
+
+    /* Background animated gradient */
+    .bg-layer {
+      position: fixed;
+      inset: -50px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 120, 0.4), transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(0, 180, 255, 0.4), transparent 60%),
+        radial-gradient(circle at 50% 120%, rgba(255, 200, 0, 0.35), transparent 60%);
+      filter: blur(4px);
+      animation: bgMove 18s ease-in-out infinite alternate;
+      z-index: -2;
     }
 
     @keyframes bgMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(-30px, 30px,0) scale(1.1); }
+      100% { transform: translate3d(30px,-30px,0) scale(1.05); }
     }
 
+    /* Floating hearts background */
     .floating-heart {
       position: fixed;
       width: 14px;
@@ -36,8 +48,8 @@
       transform: rotate(45deg);
       border-radius: 4px;
       pointer-events: none;
-      animation: floatUp 5s linear infinite;
-      z-index: 1;
+      animation: floatUp 7s linear infinite;
+      z-index: -1;
     }
 
     .floating-heart::before,
@@ -62,385 +74,314 @@
 
     @keyframes floatUp {
       0% {
-        transform: translateY(0) rotate(45deg) scale(0.8);
+        transform: translateY(0) rotate(45deg) scale(0.7);
         opacity: 0;
       }
       20% { opacity: 1; }
       100% {
-        transform: translateY(-150vh) rotate(45deg) scale(1.4);
+        transform: translateY(-150vh) rotate(45deg) scale(1.5);
         opacity: 0;
       }
     }
 
-    .container {
+    /* Center layout */
+    .center {
       position: relative;
       z-index: 2;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px 60px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      position: relative;
+      padding: 40px 30px;
+      max-width: 420px;
+      width: 100%;
+      border-radius: 30px;
+      background: rgba(8, 8, 24, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -60px;
+      background:
+        conic-gradient(from 120deg, rgba(255, 255, 255, 0.1), transparent 40%, rgba(255, 0, 128, 0.5), transparent 80%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      animation: rotateAura 16s linear infinite;
+    }
+
+    @keyframes rotateAura {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
       text-align: center;
     }
 
-    header {
-      margin-bottom: 30px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.25);
-      backdrop-filter: blur(8px);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .chip-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ffdeeb;
-      box-shadow: 0 0 12px rgba(255, 222, 235, 0.9);
-    }
-
-    h1 {
-      margin-top: 18px;
-      font-size: clamp(2.2rem, 6vw, 3.6rem);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .highlight {
+    /* Neon ring + heart in middle */
+    .orbit-wrapper {
       position: relative;
-      display: inline-block;
-    }
-
-    .highlight::after {
-      content: "";
-      position: absolute;
-      left: 8%;
-      bottom: -6px;
-      width: 84%;
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #ffd43b, #ff8787);
-      opacity: 0.75;
-      filter: blur(4px);
-      z-index: -1;
-    }
-
-    .love-symbol {
-      display: inline-block;
-      margin: 10px 0 4px;
-      font-size: 1.6rem;
-      animation: pulse 1.2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
-    }
-
-    .subtitle {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      opacity: 0.9;
-    }
-
-    /* Typing effect */
-    .typing-wrapper {
-      margin-top: 24px;
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.18);
-      font-family: "Courier New", monospace;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid rgba(255,255,255,0.9);
-      animation: typing 5s steps(40, end) infinite, blink 0.8s step-end infinite;
-    }
-
-    @keyframes typing {
-      0% { width: 0; }
-      40% { width: 250px; }
-      60% { width: 250px; }
-      100% { width: 0; }
-    }
-
-    @keyframes blink {
-      from, to { border-color: transparent; }
-      50% { border-color: rgba(255,255,255,0.9); }
-    }
-
-    /* Love card */
-    .love-card {
-      margin: 40px auto 30px;
-      padding: 24px 18px;
-      max-width: 620px;
-      border-radius: 24px;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(255, 255, 255, 0.08);
-      text-align: left;
-    }
-
-    .love-card-title {
+      width: 230px;
+      height: 230px;
+      margin: 0 auto 24px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-weight: 600;
-      margin-bottom: 14px;
-      opacity: 0.95;
+      justify-content: center;
     }
 
-    .love-card-title span {
-      width: 22px;
-      height: 2px;
+    .orbit-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow:
+        0 0 20px rgba(255, 0, 128, 0.35),
+        0 0 60px rgba(0, 180, 255, 0.25);
+      backdrop-filter: blur(4px);
+      animation: ringGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes ringGlow {
+      0% {
+        box-shadow:
+          0 0 12px rgba(255, 0, 128, 0.3),
+          0 0 26px rgba(0, 180, 255, 0.2);
+      }
+      100% {
+        box-shadow:
+          0 0 28px rgba(255, 0, 128, 0.7),
+          0 0 60px rgba(0, 180, 255, 0.5);
+      }
+    }
+
+    /* Small orbiting dots */
+    .orbit-dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
       border-radius: 999px;
-      background: linear-gradient(90deg, #ffec99, #ff6b6b);
+      background: radial-gradient(circle at 30% 30%, #fff, #ff4d9e);
+      box-shadow: 0 0 12px rgba(255, 140, 180, 0.9);
+      animation: orbit 10s linear infinite;
+      transform-origin: 50% 100px;
     }
 
-    .love-quote {
-      font-size: 1rem;
-      line-height: 1.7;
+    .orbit-dot:nth-child(2) {
+      animation-duration: 14s;
+      transform-origin: 50% 70px;
+      opacity: 0.8;
     }
 
-    .love-quote strong {
+    .orbit-dot:nth-child(3) {
+      animation-duration: 18s;
+      transform-origin: 50% 120px;
+      opacity: 0.6;
+    }
+
+    @keyframes orbit {
+      0%   { transform: rotate(0deg) translateX(0); }
+      100% { transform: rotate(360deg) translateX(0); }
+    }
+
+    .heart-core {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      transform: rotate(45deg);
+      background: radial-gradient(circle at 30% 30%, #fff, #ff4d9e);
+      border-radius: 30px;
+      box-shadow:
+        0 0 25px rgba(255, 77, 158, 0.9),
+        0 0 60px rgba(255, 198, 234, 0.6);
+      animation: heartBeat 1.4s ease-in-out infinite;
+    }
+
+    .heart-core::before,
+    .heart-core::after {
+      content: "";
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .heart-core::before {
+      top: -45px;
+      left: 0;
+    }
+
+    .heart-core::after {
+      left: -45px;
+      top: 0;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: rotate(45deg) scale(1); }
+      50%      { transform: rotate(45deg) scale(1.25); }
+    }
+
+    /* Names */
+    .names {
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
       font-weight: 700;
     }
 
-    .names {
-      margin-top: 16px;
+    .symbol {
+      font-size: 1.8rem;
+      vertical-align: middle;
+      animation: symbolPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes symbolPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 100, 160, 0.3)); }
+      50%      { transform: scale(1.25); filter: drop-shadow(0 0 20px rgba(255, 100, 160, 0.8)); }
+    }
+
+    .tagline {
       font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
       opacity: 0.8;
     }
 
-    /* Timeline */
-    .timeline {
-      margin-top: 20px;
-      display: grid;
-      gap: 14px;
+    /* Small static note in bottom */
+    .corner-note {
+      position: fixed;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.6;
+      z-index: 3;
     }
 
-    .timeline-item {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 10px 16px;
-      align-items: start;
-      text-align: left;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.16);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, background 0.2s ease;
-      cursor: default;
-    }
-
-    .timeline-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 32px rgba(0,0,0,0.4);
-      background: rgba(0,0,0,0.6);
-      border-color: rgba(255,255,255,0.45);
-    }
-
-    .timeline-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-top: 5px;
-      background: radial-gradient(circle at 30% 30%, #fff, #ff6b6b);
-      box-shadow: 0 0 12px rgba(255, 182, 193, 0.9);
-    }
-
-    .timeline-content-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .timeline-content-text {
-      margin-top: 4px;
-      font-size: 0.85rem;
-      opacity: 0.9;
-      line-height: 1.5;
-    }
-
-    /* Footer note */
-    footer {
-      margin-top: 32px;
-      font-size: 0.8rem;
+    .corner-note span {
       opacity: 0.8;
     }
 
-    footer span {
-      font-weight: 600;
+    .tap-hint {
+      position: fixed;
+      bottom: 16px;
+      left: 18px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.65;
+      z-index: 3;
     }
 
-    .click-tip {
-      margin-top: 8px;
-      font-size: 0.8rem;
-      opacity: 0.85;
-      font-style: italic;
-    }
-
-    @media (max-width: 600px) {
-      .love-card {
-        padding: 20px 16px;
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 20px 30px;
       }
-      .typing-wrapper {
-        max-width: 90vw;
-        font-size: 0.85rem;
+      .orbit-wrapper {
+        width: 190px;
+        height: 190px;
+      }
+      .names {
+        letter-spacing: 0.12em;
       }
     }
   </style>
 </head>
 <body>
+  <div class="bg-layer"></div>
 
-  <!-- Beberapa hati yang mengambang di background (dibuat via JS juga) -->
+  <div class="center">
+    <div class="card">
+      <div class="card-inner">
+        <div class="orbit-wrapper">
+          <div class="orbit-ring"></div>
 
-  <div class="container">
-    <header>
-      <div class="chip">
-        <div class="chip-dot"></div>
-        <span>artistic love page</span>
-      </div>
+          <!-- Dots mengelilingi hati -->
+          <div class="orbit-dot"></div>
+          <div class="orbit-dot"></div>
+          <div class="orbit-dot"></div>
 
-      <h1>
-        <span class="highlight">Rian</span>
-        <span class="love-symbol">♥</span>
-        <span class="highlight">Olip</span>
-      </h1>
-
-      <p class="subtitle">
-        Dua nama. Satu cerita. Satu halaman kecil yang menyimpan jejak rasa.
-      </p>
-
-      <div class="typing-wrapper">
-        Rian &amp; Olip – lovenya nggak ada expired date.
-      </div>
-    </header>
-
-    <section class="love-card">
-      <div class="love-card-title">
-        <span></span>
-        <div>catatan hati</div>
-      </div>
-
-      <p class="love-quote">
-        Kadang dunia terasa ramai dan bising, tapi di antara semua itu ada dua hati yang
-        diam-diam saling mencari: <strong>Rian</strong> dan <strong>Olip</strong>.  
-        Tidak perlu kata-kata mewah, cukup satu kalimat sederhana:
-        <strong>“aku di sini, untuk kamu.”</strong>
-      </p>
-
-      <p class="names">
-        Ditulis untuk: <strong>Rian</strong> &amp; <strong>Olip</strong>  
-        Mode: <em>lovenya full, nggak bisa di-pause.</em>
-      </p>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div>
-            <div class="timeline-content-title">Awal Kenal</div>
-            <div class="timeline-content-text">
-              Dari satu momen kecil, pelan-pelan berubah jadi kebiasaan: saling chat,
-              saling nunggu, dan akhirnya… saling sayang.
-            </div>
-          </div>
+          <!-- Hati utama -->
+          <div class="heart-core"></div>
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div>
-            <div class="timeline-content-title">Rian &amp; Olip Teamwork</div>
-            <div class="timeline-content-text">
-              Satu sama lain saling dukung. Bukan cuma saat senang, tapi juga ketika capek,
-              overthinking, atau lagi banyak masalah.
-            </div>
-          </div>
+        <!-- Hanya nama dan simbol love, tanpa kalimat panjang -->
+        <div class="names">
+          RIAN
+          <span class="symbol">♥</span>
+          OLIP
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div>
-            <div class="timeline-content-title">Masa Depan Versi Kita</div>
-            <div class="timeline-content-text">
-              Tidak perlu buru-buru. Pelan, tapi yakin.
-              Selama kita pegang tangan yang sama, langkah sekecil apa pun tetap
-              mengarah ke masa depan bareng-bareng.
-            </div>
-          </div>
+        <div class="tagline">
+          FOREVER • LOVE • ART
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <footer>
-      <div>
-        Dibuat khusus untuk <span>Rian &amp; Olip</span>.
-      </div>
-      <div class="click-tip">
-        Tip: klik di mana saja di halaman ini untuk munculin hati-hati kecil yang terbang.
-      </div>
-    </footer>
+  <div class="corner-note">
+    <span>RIAN ♥ OLIP</span>
+  </div>
+
+  <div class="tap-hint">
+    CLICK / TAP = HEARTS
   </div>
 
   <script>
-    // Fungsi untuk membuat hati terbang di posisi acak
-    function createHeart(x, y) {
+    // Buat hati kecil mengambang dari bawah
+    function createHeart(x, y, fromClick = false) {
       const heart = document.createElement("div");
       heart.classList.add("floating-heart");
 
-      const size = Math.random() * 12 + 10; // 10–22px
+      const size = Math.random() * 16 + 10; // 10–26px
       heart.style.width = size + "px";
       heart.style.height = size + "px";
 
-      // Jika x dan y ada (klik), pakai posisi itu, kalau tidak random dari bawah
-      if (typeof x === "number" && typeof y === "number") {
+      if (fromClick && typeof x === "number" && typeof y === "number") {
         heart.style.left = x - size / 2 + "px";
         heart.style.top = y - size / 2 + "px";
       } else {
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.bottom = "-40px";
+        heart.style.bottom = "-50px";
       }
 
-      // Variasi durasi floating
-      const duration = Math.random() * 3 + 4; // 4–7s
+      const duration = Math.random() * 4 + 5; // 5–9s
       heart.style.animationDuration = duration + "s";
-      heart.style.opacity = Math.random() * 0.5 + 0.5;
+      heart.style.opacity = Math.random() * 0.5 + 0.4;
 
       document.body.appendChild(heart);
 
-      // Hapus elemen setelah animasi selesai
       setTimeout(() => {
         heart.remove();
       }, duration * 1000);
     }
 
-    // Hati otomatis muncul dari bawah (background)
+    // Otomatis tiap beberapa detik
     setInterval(() => {
       createHeart();
-    }, 900);
+    }, 1200);
 
-    // Klik di mana saja buat munculin hati di posisi klik
+    // Klik / tap untuk munculin hati di posisi klik
     document.addEventListener("click", (event) => {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 4; i++) {
         setTimeout(() => {
-          createHeart(event.clientX + (Math.random() * 40 - 20),
-                      event.clientY + (Math.random() * 40 - 20));
+          const offsetX = event.clientX + (Math.random() * 60 - 30);
+          const offsetY = event.clientY + (Math.random() * 60 - 30);
+          createHeart(offsetX, offsetY, true);
         }, i * 120);
       }
     });
