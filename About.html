@@ -1,233 +1,449 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Creation of Rose: Tangan Boneka Pink</title>
-    <style>
-        /* --- Tema Dasar (Hutan) --- */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background: radial-gradient(circle, #3a3b3a 0%, #000000 100%); /* Latar belakang gelap dramatis */
-            overflow: hidden; 
-            display: flex;
-            justify-content: center;
-            align-items: center; 
-            font-family: sans-serif;
-            position: relative;
-        }
+  <meta charset="UTF-8" />
+  <title>Rian & Olip Love Story</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        /* --- Efek Bintang/Partikel Latar Belakang --- */
-        .star-fall {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: twinkle 15s linear infinite;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            z-index: 1;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        @keyframes twinkle {
-            0% { transform: translateY(0); opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+      background: linear-gradient(-45deg, #ff6b6b, #f06595, #845ef7, #339af0);
+      background-size: 300% 300%;
+      animation: bgMove 15s ease infinite;
+    }
 
-        /* --- Desain Tangan Boneka Pink --- */
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        .creation-container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-        }
+    .floating-heart {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      transform: rotate(45deg);
+      border-radius: 4px;
+      pointer-events: none;
+      animation: floatUp 5s linear infinite;
+      z-index: 1;
+    }
 
-        .hand {
-            font-size: 150px; 
-            transition: transform 0.3s ease-out;
-            cursor: default; 
-            
-            /* ---- PERUBAHAN UTAMA UNTUK TANGAN PINK ---- */
-            color: #ff69b4; /* Warna pink hot (Deep Pink) */
-            filter: drop-shadow(0 0 10px #ff69b4) drop-shadow(0 0 5px #f08080); /* Efek glow pink */
-            /* Mengubah warna emoji menggunakan filter */
-            -webkit-filter: drop-shadow(0 0 10px #ff69b4) drop-shadow(0 0 5px #f08080); 
-            /* ------------------------------------------ */
-        }
+    .floating-heart::before,
+    .floating-heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: inherit;
+      border-radius: 50%;
+    }
 
-        .hand-left {
-            transform: translateX(20px) rotate(-10deg); /* Sedikit rotasi */
-        }
+    .floating-heart::before {
+      top: -7px;
+      left: 0;
+    }
 
-        .hand-right {
-            transform: translateX(-20px) rotate(10deg); /* Sedikit rotasi */
-        }
+    .floating-heart::after {
+      left: -7px;
+      top: 0;
+    }
 
-        /* Titik Sentuh (Trigger) di antara dua jari */
-        .touch-trigger {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 15; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            /* Efek Cahaya Merah pada Titik Sentuh */
-            box-shadow: 0 0 15px #f50057, 
-                        0 0 30px #f50057, 
-                        0 0 40px #f50057, 
-                        0 0 10px rgba(255, 0, 85, 0.8);
-            background: rgba(255, 0, 85, 0.4);
-            animation: pulseGlow 1.5s infinite alternate;
-        }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg) scale(0.8);
+        opacity: 0;
+      }
+      20% { opacity: 1; }
+      100% {
+        transform: translateY(-150vh) rotate(45deg) scale(1.4);
+        opacity: 0;
+      }
+    }
 
-        /* Animasi Glow Berdenyut */
-        @keyframes pulseGlow {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1.15); /* Denyutan lebih besar */
-                opacity: 1;
-            }
-        }
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      text-align: center;
+    }
 
-        /* Efek Tangan Bergerak Saat Sentuh */
-        .creation-container.active .hand-left {
-            transform: translateX(10px) rotate(-10deg);
-        }
-        .creation-container.active .hand-right {
-            transform: translateX(-10px) rotate(10deg);
-        }
+    header {
+      margin-bottom: 30px;
+    }
 
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(8px);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
 
-        /* --- Desain Mawar Jatuh (Dipertahankan) --- */
-        .falling-rose {
-            position: absolute;
-            top: 45%; 
-            font-size: 24px;
-            pointer-events: none;
-        }
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffdeeb;
+      box-shadow: 0 0 12px rgba(255, 222, 235, 0.9);
+    }
 
-        /* Keyframes untuk animasi jatuh (dipertahankan) */
-        @keyframes fallAndSpin {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg) translateX(calc(-50px + Math.random() * 100px)); 
-                opacity: 0.7;
-            }
-        }
-        
-        /* Instruksi kecil */
-        .instruction {
-            position: absolute;
-            bottom: 20px;
-            color: rgba(255,255,255,0.8);
-            font-size: 1rem;
-            z-index: 10;
-        }
+    h1 {
+      margin-top: 18px;
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
 
-    </style>
+    .highlight {
+      position: relative;
+      display: inline-block;
+    }
+
+    .highlight::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      bottom: -6px;
+      width: 84%;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffd43b, #ff8787);
+      opacity: 0.75;
+      filter: blur(4px);
+      z-index: -1;
+    }
+
+    .love-symbol {
+      display: inline-block;
+      margin: 10px 0 4px;
+      font-size: 1.6rem;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* Typing effect */
+    .typing-wrapper {
+      margin-top: 24px;
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-family: "Courier New", monospace;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid rgba(255,255,255,0.9);
+      animation: typing 5s steps(40, end) infinite, blink 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      0% { width: 0; }
+      40% { width: 250px; }
+      60% { width: 250px; }
+      100% { width: 0; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: rgba(255,255,255,0.9); }
+    }
+
+    /* Love card */
+    .love-card {
+      margin: 40px auto 30px;
+      padding: 24px 18px;
+      max-width: 620px;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+      text-align: left;
+    }
+
+    .love-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      margin-bottom: 14px;
+      opacity: 0.95;
+    }
+
+    .love-card-title span {
+      width: 22px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffec99, #ff6b6b);
+    }
+
+    .love-quote {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .love-quote strong {
+      font-weight: 700;
+    }
+
+    .names {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px 16px;
+      align-items: start;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease, background 0.2s ease;
+      cursor: default;
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.6);
+      border-color: rgba(255,255,255,0.45);
+    }
+
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: radial-gradient(circle at 30% 30%, #fff, #ff6b6b);
+      box-shadow: 0 0 12px rgba(255, 182, 193, 0.9);
+    }
+
+    .timeline-content-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .timeline-content-text {
+      margin-top: 4px;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* Footer note */
+    footer {
+      margin-top: 32px;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    footer span {
+      font-weight: 600;
+    }
+
+    .click-tip {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .love-card {
+        padding: 20px 16px;
+      }
+      .typing-wrapper {
+        max-width: 90vw;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="creation-container" id="creationContainer">
-        <div class="hand hand-left">🖐️</div> 
-        
-        <div class="touch-trigger" id="touchTrigger"></div>
+  <!-- Beberapa hati yang mengambang di background (dibuat via JS juga) -->
 
-        <div class="hand hand-right">🖐️</div> 
-    </div>
+  <div class="container">
+    <header>
+      <div class="chip">
+        <div class="chip-dot"></div>
+        <span>artistic love page</span>
+      </div>
 
-    <div class="instruction">Sentuh Cahaya Merah untuk Menciptakan Mawar</div>
+      <h1>
+        <span class="highlight">Rian</span>
+        <span class="love-symbol">♥</span>
+        <span class="highlight">Olip</span>
+      </h1>
 
-    <script>
-        const touchTrigger = document.getElementById('touchTrigger');
-        const creationContainer = document.getElementById('creationContainer');
+      <p class="subtitle">
+        Dua nama. Satu cerita. Satu halaman kecil yang menyimpan jejak rasa.
+      </p>
 
-        // --- FUNGSI CREATE ROSE ---
-        function createRose() {
-            const rose = document.createElement('div');
-            rose.innerHTML = '🌹'; 
-            rose.classList.add('falling-rose');
+      <div class="typing-wrapper">
+        Rian &amp; Olip – lovenya nggak ada expired date.
+      </div>
+    </header>
 
-            // Posisi awal mawar di tengah trigger
-            const triggerRect = touchTrigger.getBoundingClientRect();
-            const startX = triggerRect.left + triggerRect.width / 2;
-            const startY = triggerRect.top + triggerRect.height / 2;
-            
-            rose.style.left = startX + 'px';
-            rose.style.top = startY + 'px'; 
+    <section class="love-card">
+      <div class="love-card-title">
+        <span></span>
+        <div>catatan hati</div>
+      </div>
 
-            const size = Math.random() * 20 + 20;
-            rose.style.fontSize = size + 'px';
+      <p class="love-quote">
+        Kadang dunia terasa ramai dan bising, tapi di antara semua itu ada dua hati yang
+        diam-diam saling mencari: <strong>Rian</strong> dan <strong>Olip</strong>.  
+        Tidak perlu kata-kata mewah, cukup satu kalimat sederhana:
+        <strong>“aku di sini, untuk kamu.”</strong>
+      </p>
 
-            const duration = Math.random() * 3 + 3;
-            const randomSway = Math.random() * 100 - 50; 
-            const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; 
-            
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes ${animationName} {
-                    0% {
-                         transform: translate(0, 0);
-                         opacity: 1;
-                    }
-                    100% {
-                        transform: translate(${randomSway}px, 100vh) rotate(${Math.random() * 720}deg); 
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
+      <p class="names">
+        Ditulis untuk: <strong>Rian</strong> &amp; <strong>Olip</strong>  
+        Mode: <em>lovenya full, nggak bisa di-pause.</em>
+      </p>
 
-            rose.style.animation = `${animationName} ${duration}s linear forwards`;
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-content-title">Awal Kenal</div>
+            <div class="timeline-content-text">
+              Dari satu momen kecil, pelan-pelan berubah jadi kebiasaan: saling chat,
+              saling nunggu, dan akhirnya… saling sayang.
+            </div>
+          </div>
+        </div>
 
-            document.body.appendChild(rose);
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-content-title">Rian &amp; Olip Teamwork</div>
+            <div class="timeline-content-text">
+              Satu sama lain saling dukung. Bukan cuma saat senang, tapi juga ketika capek,
+              overthinking, atau lagi banyak masalah.
+            </div>
+          </div>
+        </div>
 
-            setTimeout(() => {
-                rose.remove();
-                style.remove();
-            }, duration * 1000);
-        }
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="timeline-content-title">Masa Depan Versi Kita</div>
+            <div class="timeline-content-text">
+              Tidak perlu buru-buru. Pelan, tapi yakin.
+              Selama kita pegang tangan yang sama, langkah sekecil apa pun tetap
+              mengarah ke masa depan bareng-bareng.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // --- FUNGSI STAR FALL (Background) ---
-        function createStar() {
-            const star = document.createElement('div');
-            star.classList.add('star-fall');
-            star.style.left = Math.random() * window.innerWidth + 'px'; 
-            star.style.animationDuration = Math.random() * 10 + 5 + 's'; 
-            star.style.width = star.style.height = Math.random() * 2 + 1 + 'px'; 
-            document.body.appendChild(star);
-            setTimeout(() => { star.remove(); }, 15000); 
-        }
-        // Jalankan background terus menerus
-        setInterval(createStar, 200); 
+    <footer>
+      <div>
+        Dibuat khusus untuk <span>Rian &amp; Olip</span>.
+      </div>
+      <div class="click-tip">
+        Tip: klik di mana saja di halaman ini untuk munculin hati-hati kecil yang terbang.
+      </div>
+    </footer>
+  </div>
 
-        // --- EVENT LISTENER UTAMA ---
-        touchTrigger.addEventListener('click', () => {
-            // Efek Tangan Mendekat saat Klik
-            creationContainer.classList.add('active');
-            setTimeout(() => creationContainer.classList.remove('active'), 200);
+  <script>
+    // Fungsi untuk membuat hati terbang di posisi acak
+    function createHeart(x, y) {
+      const heart = document.createElement("div");
+      heart.classList.add("floating-heart");
 
-            // Munculkan 15 mawar sekaligus
-            for(let i = 0; i < 15; i++) {
-                setTimeout(createRose, i * 50);
-            }
-        });
-    </script>
+      const size = Math.random() * 12 + 10; // 10–22px
+      heart.style.width = size + "px";
+      heart.style.height = size + "px";
 
+      // Jika x dan y ada (klik), pakai posisi itu, kalau tidak random dari bawah
+      if (typeof x === "number" && typeof y === "number") {
+        heart.style.left = x - size / 2 + "px";
+        heart.style.top = y - size / 2 + "px";
+      } else {
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.bottom = "-40px";
+      }
+
+      // Variasi durasi floating
+      const duration = Math.random() * 3 + 4; // 4–7s
+      heart.style.animationDuration = duration + "s";
+      heart.style.opacity = Math.random() * 0.5 + 0.5;
+
+      document.body.appendChild(heart);
+
+      // Hapus elemen setelah animasi selesai
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    // Hati otomatis muncul dari bawah (background)
+    setInterval(() => {
+      createHeart();
+    }, 900);
+
+    // Klik di mana saja buat munculin hati di posisi klik
+    document.addEventListener("click", (event) => {
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          createHeart(event.clientX + (Math.random() * 40 - 20),
+                      event.clientY + (Math.random() * 40 - 20));
+        }, i * 120);
+      }
+    });
+  </script>
 </body>
 </html>
