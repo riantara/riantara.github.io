@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Creation of Rose: Adam & Tuhan</title>
+    <title>The Creation of Rose: Tangan Boneka Pink</title>
     <style>
         /* --- Tema Dasar (Hutan) --- */
         body {
@@ -14,7 +14,7 @@
             overflow: hidden; 
             display: flex;
             justify-content: center;
-            align-items: center; /* Posisikan di tengah layar */
+            align-items: center; 
             font-family: sans-serif;
             position: relative;
         }
@@ -38,7 +38,7 @@
             100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        /* --- Desain Tangan (Finger Glow) --- */
+        /* --- Desain Tangan Boneka Pink --- */
 
         .creation-container {
             display: flex;
@@ -48,18 +48,24 @@
         }
 
         .hand {
-            font-size: 150px; /* Ukuran emoji tangan */
+            font-size: 150px; 
             transition: transform 0.3s ease-out;
             cursor: default; 
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            
+            /* ---- PERUBAHAN UTAMA UNTUK TANGAN PINK ---- */
+            color: #ff69b4; /* Warna pink hot (Deep Pink) */
+            filter: drop-shadow(0 0 10px #ff69b4) drop-shadow(0 0 5px #f08080); /* Efek glow pink */
+            /* Mengubah warna emoji menggunakan filter */
+            -webkit-filter: drop-shadow(0 0 10px #ff69b4) drop-shadow(0 0 5px #f08080); 
+            /* ------------------------------------------ */
         }
 
         .hand-left {
-            transform: translateX(20px);
+            transform: translateX(20px) rotate(-10deg); /* Sedikit rotasi */
         }
 
         .hand-right {
-            transform: translateX(-20px);
+            transform: translateX(-20px) rotate(10deg); /* Sedikit rotasi */
         }
 
         /* Titik Sentuh (Trigger) di antara dua jari */
@@ -69,16 +75,17 @@
             height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 15; /* Pastikan di atas tangan */
+            z-index: 15; 
             display: flex;
             justify-content: center;
             align-items: center;
+            
             /* Efek Cahaya Merah pada Titik Sentuh */
-            box-shadow: 0 0 10px #ff004c, 
-                        0 0 20px #ff004c, 
-                        0 0 30px #ff004c, 
-                        0 0 5px rgba(255, 0, 76, 0.8);
-            background: rgba(255, 0, 76, 0.3);
+            box-shadow: 0 0 15px #f50057, 
+                        0 0 30px #f50057, 
+                        0 0 40px #f50057, 
+                        0 0 10px rgba(255, 0, 85, 0.8);
+            background: rgba(255, 0, 85, 0.4);
             animation: pulseGlow 1.5s infinite alternate;
         }
 
@@ -86,27 +93,27 @@
         @keyframes pulseGlow {
             0% {
                 transform: scale(1);
-                opacity: 0.7;
+                opacity: 0.8;
             }
             100% {
-                transform: scale(1.1);
+                transform: scale(1.15); /* Denyutan lebih besar */
                 opacity: 1;
             }
         }
 
         /* Efek Tangan Bergerak Saat Sentuh */
         .creation-container.active .hand-left {
-            transform: translateX(10px);
+            transform: translateX(10px) rotate(-10deg);
         }
         .creation-container.active .hand-right {
-            transform: translateX(-10px);
+            transform: translateX(-10px) rotate(10deg);
         }
 
 
-        /* --- Desain Mawar Jatuh (Sama seperti sebelumnya) --- */
+        /* --- Desain Mawar Jatuh (Dipertahankan) --- */
         .falling-rose {
             position: absolute;
-            top: 45%; /* Posisikan sedikit di bawah trigger */
+            top: 45%; 
             font-size: 24px;
             pointer-events: none;
         }
@@ -127,7 +134,7 @@
         .instruction {
             position: absolute;
             bottom: 20px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.8);
             font-size: 1rem;
             z-index: 10;
         }
@@ -137,9 +144,12 @@
 <body>
 
     <div class="creation-container" id="creationContainer">
-        <div class="hand hand-left">👉</div> <div class="touch-trigger" id="touchTrigger"></div>
+        <div class="hand hand-left">🖐️</div> 
+        
+        <div class="touch-trigger" id="touchTrigger"></div>
 
-        <div class="hand hand-right">👈</div> </div>
+        <div class="hand hand-right">🖐️</div> 
+    </div>
 
     <div class="instruction">Sentuh Cahaya Merah untuk Menciptakan Mawar</div>
 
@@ -147,7 +157,7 @@
         const touchTrigger = document.getElementById('touchTrigger');
         const creationContainer = document.getElementById('creationContainer');
 
-        // --- FUNGSI CREATE ROSE (HAMPIR SAMA SEPERTI SEBELUMNYA) ---
+        // --- FUNGSI CREATE ROSE ---
         function createRose() {
             const rose = document.createElement('div');
             rose.innerHTML = '🌹'; 
@@ -159,7 +169,7 @@
             const startY = triggerRect.top + triggerRect.height / 2;
             
             rose.style.left = startX + 'px';
-            rose.style.top = startY + 'px'; // Mulai dari titik sentuh
+            rose.style.top = startY + 'px'; 
 
             const size = Math.random() * 20 + 20;
             rose.style.fontSize = size + 'px';
@@ -193,7 +203,7 @@
             }, duration * 1000);
         }
 
-        // --- FUNGSI STAR FALL (SAMA SEPERTI SEBELUMNYA) ---
+        // --- FUNGSI STAR FALL (Background) ---
         function createStar() {
             const star = document.createElement('div');
             star.classList.add('star-fall');
@@ -203,6 +213,7 @@
             document.body.appendChild(star);
             setTimeout(() => { star.remove(); }, 15000); 
         }
+        // Jalankan background terus menerus
         setInterval(createStar, 200); 
 
         // --- EVENT LISTENER UTAMA ---
