@@ -3,183 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love: Rian & Olip</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>The Creation of Rose: Adam & Tuhan</title>
     <style>
-        /* Reset dasar */
-        * {
+        /* --- Tema Dasar (Hutan) --- */
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            /* Latar belakang gradien pink ke ungu */
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-            height: 100vh;
+            min-height: 100vh;
+            background: radial-gradient(circle, #3a3b3a 0%, #000000 100%); /* Latar belakang gelap dramatis */
+            overflow: hidden; 
             display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            font-family: 'Dancing Script', cursive;
-        }
-
-        /* Kontainer utama */
-        .love-container {
-            text-align: center;
+            align-items: center; /* Posisikan di tengah layar */
+            font-family: sans-serif;
             position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column; /* Susun vertikal di layar kecil */
-            align-items: center;
-            gap: 20px;
         }
 
-        /* Gaya untuk teks Nama */
-        .name {
-            font-size: 4rem;
-            color: #d63384; /* Warna pink tua */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            animation: floatText 3s ease-in-out infinite;
-        }
-
-        .name.rian {
-            animation-delay: 0s;
-        }
-        
-        .name.olip {
-            animation-delay: 1.5s; /* Sedikit delay agar gerakannya bergantian */
-        }
-
-        /* Kontainer untuk Hati di tengah */
-        .heart-wrapper {
-            position: relative;
-            width: 100px;
-            height: 90px;
-            margin: 20px;
-             animation: heartbeat 1.2s infinite;
-        }
-
-        /* Membuat bentuk Hati menggunakan CSS murni */
-        .heart {
+        /* --- Efek Bintang/Partikel Latar Belakang --- */
+        .star-fall {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ff3d6b;
-            transform: rotate(-45deg);
-            box-shadow: -5px 10px 20px rgba(237, 59, 106, 0.4);
-        }
-
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #ff3d6b;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -50%;
-            left: 0;
-        }
-
-        .heart::after {
-            top: 0;
-            right: -50%;
-        }
-
-        /* --- Animasi --- */
-
-        /* Animasi Detak Jantung */
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-
-        /* Animasi Teks Melayang */
-        @keyframes floatText {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* --- Latar Belakang Hati Melayang (Opsional) --- */
-        .bg-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            animation: twinkle 15s linear infinite;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            opacity: 0;
             z-index: 1;
         }
 
-        .bg-hearts span {
-            position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.5);
-            animation: rise 10s linear infinite;
-            bottom: -50px;
-            clip-path: path('M10,3.4 C13.6,-2.4 24.2,2.5 18.9,10.7 C13.6,18.9 10,23 10,23 C10,23 6.4,18.9 1.1,10.7 C-4.2,2.5 6.4,-2.4 10,3.4 Z');
+        @keyframes twinkle {
+            0% { transform: translateY(0); opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
 
-        @keyframes rise {
+        /* --- Desain Tangan (Finger Glow) --- */
+
+        .creation-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hand {
+            font-size: 150px; /* Ukuran emoji tangan */
+            transition: transform 0.3s ease-out;
+            cursor: default; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .hand-left {
+            transform: translateX(20px);
+        }
+
+        .hand-right {
+            transform: translateX(-20px);
+        }
+
+        /* Titik Sentuh (Trigger) di antara dua jari */
+        .touch-trigger {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 15; /* Pastikan di atas tangan */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Efek Cahaya Merah pada Titik Sentuh */
+            box-shadow: 0 0 10px #ff004c, 
+                        0 0 20px #ff004c, 
+                        0 0 30px #ff004c, 
+                        0 0 5px rgba(255, 0, 76, 0.8);
+            background: rgba(255, 0, 76, 0.3);
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+
+        /* Animasi Glow Berdenyut */
+        @keyframes pulseGlow {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Efek Tangan Bergerak Saat Sentuh */
+        .creation-container.active .hand-left {
+            transform: translateX(10px);
+        }
+        .creation-container.active .hand-right {
+            transform: translateX(-10px);
+        }
+
+
+        /* --- Desain Mawar Jatuh (Sama seperti sebelumnya) --- */
+        .falling-rose {
+            position: absolute;
+            top: 45%; /* Posisikan sedikit di bawah trigger */
+            font-size: 24px;
+            pointer-events: none;
+        }
+
+        /* Keyframes untuk animasi jatuh (dipertahankan) */
+        @keyframes fallAndSpin {
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
                 opacity: 1;
             }
             100% {
-                transform: translateY(-1000px) rotate(360deg);
-                opacity: 0;
+                transform: translateY(110vh) rotate(360deg) translateX(calc(-50px + Math.random() * 100px)); 
+                opacity: 0.7;
             }
         }
-
-        /* Penyesuaian untuk layar yang lebih besar (tablet/desktop) */
-        @media (min-width: 768px) {
-            .love-container {
-                flex-direction: row; /* Ubah menjadi horizontal */
-                gap: 40px;
-            }
-            .name {
-                font-size: 6rem;
-            }
-            .heart-wrapper {
-                width: 120px;
-                height: 108px;
-            }
+        
+        /* Instruksi kecil */
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+            z-index: 10;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-hearts">
-        <span style="left: 10%; animation-duration: 8s; width: 30px; height: 30px;"></span>
-        <span style="left: 30%; animation-duration: 12s;"></span>
-        <span style="left: 50%; animation-duration: 7s; width: 40px; height: 40px;"></span>
-        <span style="left: 70%; animation-duration: 11s;"></span>
-        <span style="left: 90%; animation-duration: 9s; width: 25px; height: 25px;"></span>
-        <span style="left: 20%; animation-duration: 15s; animation-delay: 2s;"></span>
-        <span style="left: 60%; animation-duration: 13s; animation-delay: 4s;"></span>
-    </div>
+    <div class="creation-container" id="creationContainer">
+        <div class="hand hand-left">👉</div> <div class="touch-trigger" id="touchTrigger"></div>
 
-    <div class="love-container">
-        <div class="name rian">Rian</div>
-        
-        <div class="heart-wrapper">
-            <div class="heart"></div>
-        </div>
-        
-        <div class="name olip">Olip</div>
-    </div>
+        <div class="hand hand-right">👈</div> </div>
+
+    <div class="instruction">Sentuh Cahaya Merah untuk Menciptakan Mawar</div>
+
+    <script>
+        const touchTrigger = document.getElementById('touchTrigger');
+        const creationContainer = document.getElementById('creationContainer');
+
+        // --- FUNGSI CREATE ROSE (HAMPIR SAMA SEPERTI SEBELUMNYA) ---
+        function createRose() {
+            const rose = document.createElement('div');
+            rose.innerHTML = '🌹'; 
+            rose.classList.add('falling-rose');
+
+            // Posisi awal mawar di tengah trigger
+            const triggerRect = touchTrigger.getBoundingClientRect();
+            const startX = triggerRect.left + triggerRect.width / 2;
+            const startY = triggerRect.top + triggerRect.height / 2;
+            
+            rose.style.left = startX + 'px';
+            rose.style.top = startY + 'px'; // Mulai dari titik sentuh
+
+            const size = Math.random() * 20 + 20;
+            rose.style.fontSize = size + 'px';
+
+            const duration = Math.random() * 3 + 3;
+            const randomSway = Math.random() * 100 - 50; 
+            const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; 
+            
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes ${animationName} {
+                    0% {
+                         transform: translate(0, 0);
+                         opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${randomSway}px, 100vh) rotate(${Math.random() * 720}deg); 
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            rose.style.animation = `${animationName} ${duration}s linear forwards`;
+
+            document.body.appendChild(rose);
+
+            setTimeout(() => {
+                rose.remove();
+                style.remove();
+            }, duration * 1000);
+        }
+
+        // --- FUNGSI STAR FALL (SAMA SEPERTI SEBELUMNYA) ---
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star-fall');
+            star.style.left = Math.random() * window.innerWidth + 'px'; 
+            star.style.animationDuration = Math.random() * 10 + 5 + 's'; 
+            star.style.width = star.style.height = Math.random() * 2 + 1 + 'px'; 
+            document.body.appendChild(star);
+            setTimeout(() => { star.remove(); }, 15000); 
+        }
+        setInterval(createStar, 200); 
+
+        // --- EVENT LISTENER UTAMA ---
+        touchTrigger.addEventListener('click', () => {
+            // Efek Tangan Mendekat saat Klik
+            creationContainer.classList.add('active');
+            setTimeout(() => creationContainer.classList.remove('active'), 200);
+
+            // Munculkan 15 mawar sekaligus
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createRose, i * 50);
+            }
+        });
+    </script>
 
 </body>
 </html>
