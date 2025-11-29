@@ -3,232 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akar dan Mawar Jatuh</title>
+    <title>The Creation of Rose: Adam & Tuhan</title>
     <style>
-        /* --- KODE BARU DIMULAI DI SINI (CSS Bintang) --- */
-        .star-fall {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.8); /* Warna putih/kuning muda */
-            border-radius: 50%;
-            animation: twinkle 15s linear infinite;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            z-index: 1; /* Di bawah akar, di atas background */
-        }
-
-        /* Animasi Bintang: jatuh perlahan dan berkedip */
-        @keyframes twinkle {
-            0% {
-                transform: translateY(0);
-                opacity: 0.2;
-            }
-            50% {
-                opacity: 1; /* Berkedip */
-            }
-            100% {
-                transform: translateY(100vh); /* Jatuh perlahan */
-                opacity: 0;
-            }
-        }
-        /* --- KODE BARU BERAKHIR DI SINI --- */
-
-        /* --- Reset dan Latar Belakang --- */
+        /* --- Tema Dasar (Hutan) --- */
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background: linear-gradient(to bottom, #1a2a1a, #2b3e25); /* Latar belakang hutan gelap */
-            overflow: hidden; /* Mencegah scrollbar saat mawar jatuh keluar layar */
+            background: radial-gradient(circle, #3a3b3a 0%, #000000 100%); /* Latar belakang gelap dramatis */
+            overflow: hidden; 
             display: flex;
             justify-content: center;
+            align-items: center; /* Posisikan di tengah layar */
             font-family: sans-serif;
+            position: relative;
         }
 
-        /* --- Desain Akar (Trigger) --- */
-        .root-container {
+        /* --- Efek Bintang/Partikel Latar Belakang --- */
+        .star-fall {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: twinkle 15s linear infinite;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0% { transform: translateY(0); opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* --- Desain Tangan (Finger Glow) --- */
+
+        .creation-container {
+            display: flex;
+            align-items: center;
             position: relative;
-            top: 0;
+            z-index: 10;
+        }
+
+        .hand {
+            font-size: 150px; /* Ukuran emoji tangan */
+            transition: transform 0.3s ease-out;
+            cursor: default; 
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .hand-left {
+            transform: translateX(20px);
+        }
+
+        .hand-right {
+            transform: translateX(-20px);
+        }
+
+        /* Titik Sentuh (Trigger) di antara dua jari */
+        .touch-trigger {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             cursor: pointer;
-            z-index: 10; /* Pastikan akar di atas mawar */
-            text-align: center;
-        }
-
-        /* Visualisasi Akar menggunakan CSS */
-        .the-root {
-            width: 200px;
-            height: 80px;
-            background: #5c4033; /* Warna coklat kayu */
-            border-radius: 0 0 50% 50% / 0 0 100% 100%; /* Membuat bentuk melengkung ke bawah */
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 15; /* Pastikan di atas tangan */
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #d4c4a8;
-            font-weight: bold;
-            border: 4px solid #3e2b22;
-            transition: transform 0.2s;
+            /* Efek Cahaya Merah pada Titik Sentuh */
+            box-shadow: 0 0 10px #ff004c, 
+                        0 0 20px #ff004c, 
+                        0 0 30px #ff004c, 
+                        0 0 5px rgba(255, 0, 76, 0.8);
+            background: rgba(255, 0, 76, 0.3);
+            animation: pulseGlow 1.5s infinite alternate;
         }
 
-        /* Efek saat akar disentuh/diklik */
-        .the-root:active {
-            transform: scale(0.95); /* Sedikit mengecil saat ditekan */
-            background: #6d4c3d;
+        /* Animasi Glow Berdenyut */
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
 
-        /* Tambahan detail cabang kecil (opsional) */
-        .the-root::before, .the-root::after {
-            content: '';
-            position: absolute;
-            background: #5c4033;
-            z-index: -1;
+        /* Efek Tangan Bergerak Saat Sentuh */
+        .creation-container.active .hand-left {
+            transform: translateX(10px);
         }
-        .the-root::before {
-            width: 60px; height: 60px;
-            top: 20px; left: -20px;
-            border-radius: 0 0 50% 0;
-            transform: rotate(-20deg);
-        }
-        .the-root::after {
-            width: 60px; height: 70px;
-            top: 10px; right: -20px;
-            border-radius: 0 0 0 50%;
-            transform: rotate(20deg);
+        .creation-container.active .hand-right {
+            transform: translateX(-10px);
         }
 
 
-        /* --- Desain Mawar Jatuh --- */
+        /* --- Desain Mawar Jatuh (Sama seperti sebelumnya) --- */
         .falling-rose {
             position: absolute;
-            top: -50px; /* Mulai dari luar layar atas */
+            top: 45%; /* Posisikan sedikit di bawah trigger */
             font-size: 24px;
-            pointer-events: none; /* Agar mawar tidak bisa diklik */
-            /* Animasi akan diterapkan via JS */
+            pointer-events: none;
         }
 
-        /* Keyframes untuk animasi jatuh */
+        /* Keyframes untuk animasi jatuh (dipertahankan) */
         @keyframes fallAndSpin {
             0% {
                 transform: translateY(0) rotate(0deg) translateX(0);
                 opacity: 1;
             }
             100% {
-                /* Jatuh ke bawah layar (110vh), berputar, dan sedikit bergeser ke samping */
                 transform: translateY(110vh) rotate(360deg) translateX(calc(-50px + Math.random() * 100px)); 
                 opacity: 0.7;
             }
         }
-
+        
         /* Instruksi kecil */
         .instruction {
             position: absolute;
-            top: 120px;
+            bottom: 20px;
             color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            z-index: 10;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="root-container" id="rootTrigger">
-        <div class="the-root">
-            SENTUH AKAR
-        </div>
-    </div>
-    <div class="instruction">Ketuk akar untuk menjatuhkan mawar</div>
+    <div class="creation-container" id="creationContainer">
+        <div class="hand hand-left">👉</div> <div class="touch-trigger" id="touchTrigger"></div>
+
+        <div class="hand hand-right">👈</div> </div>
+
+    <div class="instruction">Sentuh Cahaya Merah untuk Menciptakan Mawar</div>
 
     <script>
-        const rootTrigger = document.getElementById('rootTrigger');
+        const touchTrigger = document.getElementById('touchTrigger');
+        const creationContainer = document.getElementById('creationContainer');
 
-        // Fungsi untuk membuat satu mawar
+        // --- FUNGSI CREATE ROSE (HAMPIR SAMA SEPERTI SEBELUMNYA) ---
         function createRose() {
             const rose = document.createElement('div');
-            rose.innerHTML = '🌹'; // Menggunakan emoji mawar
+            rose.innerHTML = '🌹'; 
             rose.classList.add('falling-rose');
 
-            // --- Randomisasi Mawar ---
+            // Posisi awal mawar di tengah trigger
+            const triggerRect = touchTrigger.getBoundingClientRect();
+            const startX = triggerRect.left + triggerRect.width / 2;
+            const startY = triggerRect.top + triggerRect.height / 2;
             
-            // 1. Posisi Horizontal Acak
-            const startX = window.innerWidth / 2 + (Math.random() * 200 - 100);
             rose.style.left = startX + 'px';
+            rose.style.top = startY + 'px'; // Mulai dari titik sentuh
 
-            // 2. Ukuran Acak
             const size = Math.random() * 20 + 20;
             rose.style.fontSize = size + 'px';
 
-            // 3. Durasi Jatuh Acak
             const duration = Math.random() * 3 + 3;
-            
-            // 4. Gerakan Horizontal Acak (Sway) saat jatuh
             const randomSway = Math.random() * 100 - 50; 
             const animationName = `fall-${Math.random().toString(36).substr(2, 9)}`; 
             
-            // Membuat style untuk keyframe dinamis
             const style = document.createElement('style');
             style.innerHTML = `
                 @keyframes ${animationName} {
-                    to {
-                        transform: translateY(110vh) rotate(${Math.random() * 720}deg) translateX(${randomSway}px);
+                    0% {
+                         transform: translate(0, 0);
+                         opacity: 1;
+                    }
+                    100% {
+                        transform: translate(${randomSway}px, 100vh) rotate(${Math.random() * 720}deg); 
                         opacity: 0;
                     }
                 }
             `;
             document.head.appendChild(style);
 
-            // Terapkan animasi ke elemen mawar
             rose.style.animation = `${animationName} ${duration}s linear forwards`;
 
             document.body.appendChild(rose);
 
-            // --- Pembersihan Mawar ---
             setTimeout(() => {
                 rose.remove();
                 style.remove();
             }, duration * 1000);
         }
 
-        // Event Listener saat akar disentuh/diklik
-        rootTrigger.addEventListener('click', (e) => {
-            // Efek getar sedikit pada akar (opsional)
-            rootTrigger.style.transform = "translateY(5px)";
-            setTimeout(() => rootTrigger.style.transform = "translateY(0)", 100);
-
-            // Munculkan 10 mawar
-            for(let i = 0; i < 10; i++) {
-                setTimeout(createRose, i * 100);
-            }
-        });
-        
-        /* --- KODE BARU DIMULAI DI SINI (JS Bintang) --- */
-
-        // Fungsi untuk membuat Bintang/Salju
+        // --- FUNGSI STAR FALL (SAMA SEPERTI SEBELUMNYA) ---
         function createStar() {
             const star = document.createElement('div');
             star.classList.add('star-fall');
-            
-            // Posisi horizontal acak di seluruh layar
             star.style.left = Math.random() * window.innerWidth + 'px'; 
-            // Kecepatan jatuh acak
             star.style.animationDuration = Math.random() * 10 + 5 + 's'; 
-            // Ukuran acak
             star.style.width = star.style.height = Math.random() * 2 + 1 + 'px'; 
-            
             document.body.appendChild(star);
-
-            // Hapus bintang setelah selesai animasi
-            setTimeout(() => {
-                star.remove();
-            }, 15000); 
+            setTimeout(() => { star.remove(); }, 15000); 
         }
-
-        // Panggil fungsi createStar secara terus menerus (setiap 200 milidetik)
         setInterval(createStar, 200); 
-        
-        /* --- KODE BARU BERAKHIR DI SINI --- */
 
+        // --- EVENT LISTENER UTAMA ---
+        touchTrigger.addEventListener('click', () => {
+            // Efek Tangan Mendekat saat Klik
+            creationContainer.classList.add('active');
+            setTimeout(() => creationContainer.classList.remove('active'), 200);
+
+            // Munculkan 15 mawar sekaligus
+            for(let i = 0; i < 15; i++) {
+                setTimeout(createRose, i * 50);
+            }
+        });
     </script>
 
 </body>
