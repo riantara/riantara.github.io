@@ -18,8 +18,12 @@
 
     .wrapper { width: 100%; max-width: 420px; text-align: center; padding: 20px; }
 
-    /* BAR */
-    .love-bar-wrap { position: relative; margin-bottom: 30px; height: 85px; }
+    /* BAR CINTA */
+    .love-bar-wrap {
+      position: relative;
+      margin-bottom: 30px;
+      height: 90px;
+    }
 
     .love-bar {
       position: absolute;
@@ -31,7 +35,7 @@
       background: rgba(255,255,255,0.05);
       overflow: hidden;
       padding: 2px;
-      transform-origin: center bottom; /* supaya balon membesar ke atas */
+      transform-origin: center bottom;
       transition: transform 0.25s ease-out;
     }
 
@@ -41,7 +45,7 @@
       border-radius: 999px;
       background: linear-gradient(90deg, #ff00ff, #ff4b8b);
       box-shadow: 0 0 15px rgba(255,0,255,0.8);
-      transition: width 0.28s ease;
+      transition: width 0.25s ease;
     }
 
     .love-percent-display {
@@ -49,7 +53,8 @@
       left: 50%;
       bottom: 60px;
       transform: translateX(-50%);
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       text-shadow: 0 0 4px #000;
       transition: transform 0.25s ease-out;
     }
@@ -60,16 +65,37 @@
       bottom: -2px;
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
       opacity: 0.85;
+      font-size: 12px;
     }
 
-    /* KARTU */
+    /* ANIMASI BALON MENGEMBANG */
+    .love-bar-wrap.balloon .love-bar {
+      animation: pump 0.35s ease-out;
+    }
+
+    .love-bar-wrap.balloon .love-percent-display {
+      animation: pumpText 0.35s ease-out;
+    }
+
+    @keyframes pump {
+      0% { transform: scaleY(1) scaleX(1); }
+      50% { transform: scaleY(1.9) scaleX(1.10); box-shadow: 0 0 25px rgba(255,0,255,0.9); }
+      100% { transform: scaleY(1) scaleX(1); }
+    }
+
+    @keyframes pumpText {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.55); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    /* KARTU & HEART */
     .card {
       background: radial-gradient(circle at top, #1f002f, #050011 65%);
       border-radius: 35px;
-      padding: 40px 20px 45px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+      padding: 40px 20px 50px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
       position: relative;
       overflow: hidden;
     }
@@ -78,21 +104,18 @@
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle, rgba(255,0,255,0.16), transparent 55%);
+      background: radial-gradient(circle, rgba(255,0,255,0.18), transparent 55%);
       animation: pulse 0.3s ease-out;
     }
 
-    @keyframes pulse {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+    @keyframes pulse { from { opacity: 0; } to { opacity: 1; } }
 
     .heart-circle {
       width: 230px; height: 230px;
-      border-radius: 50%;
       margin: 0 auto 26px;
-      background: radial-gradient(circle at 30% 0, rgba(255,0,255,0.32), #050011);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 30% 0, rgba(255,0,255,0.32), #050011);
       box-shadow: 0 0 45px rgba(255,0,255,0.35);
       position: relative;
     }
@@ -100,32 +123,32 @@
     .heart-svg { width: 150px; height: 150px; filter: drop-shadow(0 0 12px rgba(255,11,249,0.9)); }
     .heart-path { fill: none; stroke: #ff0bf9; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
 
-    .names { letter-spacing: 0.35em; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
-    .hint { margin-top: 26px; font-size: 11px; opacity: 0.7; letter-spacing: 0.25em; }
-    .bottom-name { margin-top: 18px; font-size: 11px; opacity: 0.55; letter-spacing: 0.25em; }
+    .names { font-size: 18px; font-weight: 600; letter-spacing: 0.35em; margin-bottom: 8px; }
+    .names span { margin: 0 3px; }
+    .hint, .bottom-name { font-size: 11px; letter-spacing: 0.25em; opacity: 0.7; margin-top: 20px; }
 
     .click-area { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
-    /* LOVE BUBBLE */
+    /* BUBBLE HATI TERBANG */
     .bubble-heart {
       position: absolute;
       font-size: 18px;
       color: #ff0bf9;
-      text-shadow: 0 0 6px rgba(255,0,255,0.9);
       pointer-events: none;
+      text-shadow: 0 0 6px rgba(255,0,255,0.9);
       animation: floatUp 1.1s ease-out forwards;
       transform: translate(-50%, 0) scale(0.8);
     }
 
     @keyframes floatUp {
-      0%   { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
+      0% { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
       100% { transform: translate(-50%, -110px) scale(1.25); opacity: 0; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- BAR -->
+
     <div class="love-bar-wrap" id="barWrap">
       <div class="love-bar" id="bar">
         <div class="love-bar-inner" id="barInner"></div>
@@ -134,67 +157,105 @@
       <div class="love-bar-labels"><span>0%</span><span>100%</span></div>
     </div>
 
-    <!-- CARD -->
     <div class="card click-area" id="loveCard">
       <div class="heart-circle" id="heartCircle">
         <svg class="heart-svg" viewBox="0 0 200 200">
-          <path class="heart-path" d="M100 170 L35 105 A35 35 0 0 1 100 70 A35 35 0 0 1 165 105 Z"/>
+          <path class="heart-path"
+            d="M100 170 L35 105 A35 35 0 0 1 100 70 A35 35 0 0 1 165 105 Z"/>
         </svg>
       </div>
-      <div class="names">RIAN ♥ OLIP</div>
+      <div class="names">RIAN <span>♥</span> OLIP</div>
       <div class="hint">TAP = LOVE</div>
       <div class="bottom-name">RIAN ♥ OLIP</div>
     </div>
+
   </div>
 
   <script>
+    const barWrap = document.getElementById("barWrap");
     const bar = document.getElementById("bar");
     const barInner = document.getElementById("barInner");
     const barPercent = document.getElementById("barPercent");
     const card = document.getElementById("loveCard");
     const heartCircle = document.getElementById("heartCircle");
 
-    let love = 0;              // bisa >100
+    let love = 0;              // boleh sampai >1000
     const step = 10;           // naik tiap tap
-    let balloonScale = 1;      // skala pembesaran balon
+    let balloonScale = 1;
+    let unlimited = false;     // mode ∞ setelah 1000
 
-    function update() {
-      barPercent.textContent = Math.round(love) + "%";
-      barInner.style.width = Math.min(love, 100) + "%";
+    function restartClass(el, cls) {
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+    }
 
-      // setelah >100, balon makin besar sesuai love
-      if (love > 100) {
-        balloonScale += 0.08;                               // semakin tap semakin besar
-        bar.style.transform = `scaleY(${balloonScale}) scaleX(${1 + (balloonScale-1)*0.25})`;
-        barPercent.style.transform = `translateX(-50%) scale(${1 + (balloonScale-1)*0.45})`;
+    function createLoveBubbles() {
+      for (let i = 0; i < 6; i++) {
+        const s = document.createElement("span");
+        s.className = "bubble-heart";
+        s.textContent = "♥";
+        s.style.left = `calc(50% + ${(Math.random()-0.5)*35}px)`;
+        s.style.top  = `calc(50% + ${(Math.random()-0.5)*15}px)`;
+        s.style.animationDuration = (0.9 + Math.random()*0.3) + "s";
+        s.style.fontSize = (15 + Math.random()*5) + "px";
+        heartCircle.appendChild(s);
+        setTimeout(() => s.remove(), 1300);
       }
     }
 
-    function bubble() {
-      for (let i = 0; i < 6; i++) {
-        const sp = document.createElement("span");
-        sp.className = "bubble-heart";
-        sp.textContent = "♥";
-        sp.style.left = `calc(50% + ${(Math.random()-0.5)*35}px)`;
-        sp.style.top  = `calc(50% + ${(Math.random()-0.5)*15}px)`;
-        sp.style.animationDuration = (0.9 + Math.random()*0.3) + "s";
-        sp.style.fontSize = (15 + Math.random()*4) + "px";
-        heartCircle.appendChild(sp);
-        setTimeout(()=>sp.remove(), 1200);
+    function updateBar() {
+      if (unlimited) {
+        barPercent.textContent = "∞";
+        barInner.style.width = "100%";
+        return;
       }
+      barPercent.textContent = Math.round(love) + "%";
+      barInner.style.width = Math.min(love, 100) + "%";
     }
 
     function tap() {
       love += step;
-      update();
-      bubble();
+
+      // Setelah ∞
+      if (unlimited) {
+        balloonScale += 0.04;
+        bar.style.transform = `scaleY(${balloonScale}) scaleX(${1 + (balloonScale-1)*0.25})`;
+        barPercent.style.transform = `translateX(-50%) scale(${1 + (balloonScale-1)*0.45})`;
+        createLoveBubbles();
+        card.classList.add("heart-pulse");
+        setTimeout(() => card.classList.remove("heart-pulse"), 200);
+        return;
+      }
+
+      // Fase 0 → 100
+      if (love <= 100) {
+        updateBar();
+      }
+      // Fase 100 → 999 = balon
+      else if (love < 1000) {
+        updateBar();
+        restartClass(barWrap, "balloon");
+        balloonScale = 1 + (love - 100) / 120;
+        bar.style.transform = `scaleY(${balloonScale}) scaleX(${1 + (balloonScale-1)*0.25})`;
+        barPercent.style.transform = `translateX(-50%) scale(${1 + (balloonScale-1)*0.45})`;
+      }
+      // MASUK MODE UNLIMITED
+      else {
+        unlimited = true;
+        barPercent.textContent = "∞";
+        barInner.style.width = "100%";
+      }
+
+      createLoveBubbles();
       card.classList.add("heart-pulse");
-      setTimeout(()=> card.classList.remove("heart-pulse"), 200);
+      setTimeout(() => card.classList.remove("heart-pulse"), 200);
     }
 
     card.addEventListener("click", tap);
     card.addEventListener("touchstart", e => { e.preventDefault(); tap(); }, { passive:false });
-    update();
+
+    updateBar();
   </script>
 </body>
 </html>
