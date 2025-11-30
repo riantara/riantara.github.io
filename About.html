@@ -1,227 +1,200 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Rian ♥ Olip</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
 
     body {
-      font-family: sans-serif;
       min-height: 100vh;
-      overflow: hidden;
-      background: linear-gradient(145deg, #0b0013, #1d0030 60%, #3c004e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #3b0066, #050014 60%);
       color: #fff;
     }
 
-    /* Nebula background movement */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 40%, rgba(255, 0, 140, 0.4), transparent 60%),
-        radial-gradient(circle at 70% 70%, rgba(0, 180, 255, 0.35), transparent 60%);
-      filter: blur(40px);
-      animation: bgMove 16s ease-in-out infinite alternate;
-      z-index: -2;
-    }
-    @keyframes bgMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-40px, 40px); }
-    }
+    .wrapper { width: 100%; max-width: 420px; text-align: center; padding: 20px; }
 
-    .center {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+    /* BAR */
+    .love-bar-wrap { position: relative; margin-bottom: 30px; height: 85px; }
 
-    .frame {
-      position: relative;
-      border-radius: 32px;
-      padding: 46px 34px;
-      max-width: 430px;
-      width: 100%;
-      text-align: center;
-      background: rgba(8, 8, 24, 0.7);
-      border: 1px solid rgba(255,255,255,0.13);
-      backdrop-filter: blur(14px);
-      box-shadow:
-        0 0 45px rgba(255,0,180,0.25),
-        0 0 120px rgba(0,170,255,0.25);
-    }
-
-    /* LOVE symbol — neon futuristic */
-    .love-holder {
-      position: relative;
-      width: 230px;
-      height: 230px;
-      margin: 0 auto 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* rotating glow ring */
-    .ring {
+    .love-bar {
       position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.08);
-      box-shadow: 0 0 40px rgba(255,0,150,0.32);
-      animation: rotate 8s linear infinite;
-    }
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      left: 0; right: 0;
+      bottom: 20px;
+      width: 100%; height: 30px;
+      border: 2px solid white;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      overflow: hidden;
+      padding: 2px;
+      transform-origin: center bottom; /* supaya balon membesar ke atas */
+      transition: transform 0.25s ease-out;
     }
 
-    /* new heart symbol (abstract neon heart) */
-    .neon-heart {
-      position: relative;
-      width: 130px;
-      aspect-ratio: 1;
-      filter: drop-shadow(0 0 12px rgba(255, 0, 180, 0.7));
-    }
-    .neon-heart svg {
-      width: 100%;
+    .love-bar-inner {
+      width: 0%;
       height: 100%;
-      animation: pulse 1.7s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.22); opacity: 0.88; }
-    }
-
-    .names {
-      font-size: 2.2rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-    }
-    .symbol {
-      font-size: 1.7rem;
-      animation: glow 1.6s ease-in-out infinite;
-    }
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 0 transparent); }
-      50% { filter: drop-shadow(0 0 12px rgba(255,100,160,1)); }
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff00ff, #ff4b8b);
+      box-shadow: 0 0 15px rgba(255,0,255,0.8);
+      transition: width 0.28s ease;
     }
 
-    /* floating click hearts */
-    .float-heart {
-      position: fixed;
-      width: 14px;
-      height: 14px;
-      background: rgba(255,255,255,0.92);
-      border-radius: 4px;
-      transform: rotate(45deg);
-      pointer-events: none;
-      animation: fly 8s linear forwards;
-      z-index: -1;
+    .love-percent-display {
+      position: absolute;
+      left: 50%;
+      bottom: 60px;
+      transform: translateX(-50%);
+      font-weight: 600;
+      text-shadow: 0 0 4px #000;
+      transition: transform 0.25s ease-out;
     }
-    .float-heart::before, .float-heart::after {
+
+    .love-bar-labels {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -2px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    /* KARTU */
+    .card {
+      background: radial-gradient(circle at top, #1f002f, #050011 65%);
+      border-radius: 35px;
+      padding: 40px 20px 45px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.heart-pulse::before {
       content: "";
       position: absolute;
-      width: 14px;
-      height: 14px;
-      background: inherit;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(255,0,255,0.16), transparent 55%);
+      animation: pulse 0.3s ease-out;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .heart-circle {
+      width: 230px; height: 230px;
       border-radius: 50%;
-    }
-    .float-heart::before { top: -7px; left: 0; }
-    .float-heart::after  { top: 0; left: -7px; }
-    @keyframes fly {
-      0%   { transform: translateY(0) scale(0.7) rotate(45deg); opacity: 0; }
-      20%  { opacity: 1; }
-      100% { transform: translateY(-150vh) scale(1.5) rotate(45deg); opacity: 0; }
+      margin: 0 auto 26px;
+      background: radial-gradient(circle at 30% 0, rgba(255,0,255,0.32), #050011);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 45px rgba(255,0,255,0.35);
+      position: relative;
     }
 
-    .corner {
-      position: fixed;
-      bottom: 14px;
-      right: 14px;
-      font-size: 0.75rem;
-      letter-spacing: 0.16em;
-      opacity: 0.6;
+    .heart-svg { width: 150px; height: 150px; filter: drop-shadow(0 0 12px rgba(255,11,249,0.9)); }
+    .heart-path { fill: none; stroke: #ff0bf9; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+
+    .names { letter-spacing: 0.35em; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+    .hint { margin-top: 26px; font-size: 11px; opacity: 0.7; letter-spacing: 0.25em; }
+    .bottom-name { margin-top: 18px; font-size: 11px; opacity: 0.55; letter-spacing: 0.25em; }
+
+    .click-area { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+    /* LOVE BUBBLE */
+    .bubble-heart {
+      position: absolute;
+      font-size: 18px;
+      color: #ff0bf9;
+      text-shadow: 0 0 6px rgba(255,0,255,0.9);
       pointer-events: none;
+      animation: floatUp 1.1s ease-out forwards;
+      transform: translate(-50%, 0) scale(0.8);
     }
 
-    .hint {
-      position: fixed;
-      bottom: 14px;
-      left: 14px;
-      font-size: 0.75rem;
-      letter-spacing: 0.16em;
-      opacity: 0.65;
-      pointer-events: none;
+    @keyframes floatUp {
+      0%   { transform: translate(-50%, 0) scale(0.8); opacity: 1; }
+      100% { transform: translate(-50%, -110px) scale(1.25); opacity: 0; }
     }
   </style>
 </head>
-
 <body>
-  <div class="bg"></div>
-
-  <div class="center">
-    <div class="frame">
-      <div class="love-holder">
-        <div class="ring"></div>
-
-        <!-- Neon heart icon (baru, lebih keren) -->
-        <div class="neon-heart">
-          <svg viewBox="0 0 512 512">
-            <path d="M471.7 73.1c-54.5-46.4-136-38.3-186.4 13.9L256 116.7l-29.3-29.6C176.3 34.8 94.7 26.7 40.3 73.1-24.6 128.8-13.1 226.4 43 285l190 193.7c6.2 6.3 16.4 6.3 22.6 0L469 285c56.1-58.6 67.6-156.2 2.7-211.9z"
-              fill="none"
-              stroke="rgba(255,0,160,1)"
-              stroke-width="32"
-              stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </div>
+  <div class="wrapper">
+    <!-- BAR -->
+    <div class="love-bar-wrap" id="barWrap">
+      <div class="love-bar" id="bar">
+        <div class="love-bar-inner" id="barInner"></div>
       </div>
+      <div class="love-percent-display" id="barPercent">0%</div>
+      <div class="love-bar-labels"><span>0%</span><span>100%</span></div>
+    </div>
 
-      <div class="names">
-        RIAN <span class="symbol">♥</span> OLIP
+    <!-- CARD -->
+    <div class="card click-area" id="loveCard">
+      <div class="heart-circle" id="heartCircle">
+        <svg class="heart-svg" viewBox="0 0 200 200">
+          <path class="heart-path" d="M100 170 L35 105 A35 35 0 0 1 100 70 A35 35 0 0 1 165 105 Z"/>
+        </svg>
       </div>
+      <div class="names">RIAN ♥ OLIP</div>
+      <div class="hint">TAP = LOVE</div>
+      <div class="bottom-name">RIAN ♥ OLIP</div>
     </div>
   </div>
 
-  <div class="corner">RIAN ♥ OLIP</div>
-  <div class="hint">CLICK / TAP = HEART</div>
-
   <script>
-    function popHeart(x, y) {
-      const h = document.createElement("div");
-      h.classList.add("float-heart");
-      const s = Math.random()*16 + 10;
-      h.style.width = s+"px";
-      h.style.height = s+"px";
-      h.style.left = x - s/2 + "px";
-      h.style.top  = y - s/2 + "px";
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(), 8000);
+    const bar = document.getElementById("bar");
+    const barInner = document.getElementById("barInner");
+    const barPercent = document.getElementById("barPercent");
+    const card = document.getElementById("loveCard");
+    const heartCircle = document.getElementById("heartCircle");
+
+    let love = 0;              // bisa >100
+    const step = 10;           // naik tiap tap
+    let balloonScale = 1;      // skala pembesaran balon
+
+    function update() {
+      barPercent.textContent = Math.round(love) + "%";
+      barInner.style.width = Math.min(love, 100) + "%";
+
+      // setelah >100, balon makin besar sesuai love
+      if (love > 100) {
+        balloonScale += 0.08;                               // semakin tap semakin besar
+        bar.style.transform = `scaleY(${balloonScale}) scaleX(${1 + (balloonScale-1)*0.25})`;
+        barPercent.style.transform = `translateX(-50%) scale(${1 + (balloonScale-1)*0.45})`;
+      }
     }
 
-    setInterval(() => {
-      const x = Math.random() * window.innerWidth;
-      const y = window.innerHeight + 40;
-      popHeart(x, y);
-    }, 1300);
-
-    document.addEventListener("click", e => {
-      for(let i=0;i<4;i++){
-        setTimeout(()=>{
-          popHeart(e.clientX + (Math.random()*60 - 30),
-                   e.clientY + (Math.random()*60 - 30));
-        }, i*120);
+    function bubble() {
+      for (let i = 0; i < 6; i++) {
+        const sp = document.createElement("span");
+        sp.className = "bubble-heart";
+        sp.textContent = "♥";
+        sp.style.left = `calc(50% + ${(Math.random()-0.5)*35}px)`;
+        sp.style.top  = `calc(50% + ${(Math.random()-0.5)*15}px)`;
+        sp.style.animationDuration = (0.9 + Math.random()*0.3) + "s";
+        sp.style.fontSize = (15 + Math.random()*4) + "px";
+        heartCircle.appendChild(sp);
+        setTimeout(()=>sp.remove(), 1200);
       }
-    });
+    }
+
+    function tap() {
+      love += step;
+      update();
+      bubble();
+      card.classList.add("heart-pulse");
+      setTimeout(()=> card.classList.remove("heart-pulse"), 200);
+    }
+
+    card.addEventListener("click", tap);
+    card.addEventListener("touchstart", e => { e.preventDefault(); tap(); }, { passive:false });
+    update();
   </script>
 </body>
 </html>
